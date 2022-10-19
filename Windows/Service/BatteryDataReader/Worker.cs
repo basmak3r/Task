@@ -47,7 +47,7 @@ namespace BatteryDataReader
             catch
             {
                 cmd.CommandText = @"CREATE TABLE Batterydata(id INTEGER PRIMARY KEY AUTOINCREMENT,
-            batterylevel float, timestamp datetime)";
+            batterylevel float, timestamp datetime,pluggedstate int)";
                 cmd.ExecuteNonQuery();
             }
             
@@ -55,17 +55,25 @@ namespace BatteryDataReader
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            double battery_charge_now;
+            int plugstate;
             Worker.DbDesign();
-            cmd.CommandText = @"Insert into Batterydata(batterylevel,timestamp) Values(@batteryper,@timestam)";
+            cmd.CommandText = @"Insert into Batterydata(batterylevel,timestamp,pluggedstate) Values(@batteryper,@timestam,@plug)";
             Type t = typeof(System.Windows.Forms.PowerStatus);
             PropertyInfo[] pi = t.GetProperties();
             while (!stoppingToken.IsCancellationRequested)
             {
-                object ppvalue = pi[3].GetValue(SystemInformation.PowerStatus, null);
-                double battery_charge_now = Convert.ToDouble(ppvalue.ToString());
+                object batterypercentage = pi[3].GetValue(SystemInformation.PowerStatus, null);
+                object plugcharge = pi[0].GetValue(SystemInformation.PowerStatus, null);
+
+                 battery_charge_now = Convert.ToDouble(batterypercentage.ToString());
+                 plugstate = plugcharge.ToString()=="Online"?1:0;
+
                 date_now = DateTime.Now;
                 cmd.Parameters.AddWithValue("@batteryper", battery_charge_now);
                 cmd.Parameters.AddWithValue("@timestam", date_now);
+                cmd.Parameters.AddWithValue("@plug", plugstate);
+
                 cmd.ExecuteNonQuery();
 
 

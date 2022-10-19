@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bleju\\Desktop\\Task\\Windows\\BatteryDataReader\\BatteryDataReader\\BatteryDataReader.csproj": {}
+    "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Service\\BatteryDataReader\\BatteryDataReader.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bleju\\Desktop\\Task\\Windows\\BatteryDataReader\\BatteryDataReader\\BatteryDataReader.csproj": {
+    "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Service\\BatteryDataReader\\BatteryDataReader.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\BatteryDataReader\\BatteryDataReader\\BatteryDataReader.csproj",
+        "projectUniqueName": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Service\\BatteryDataReader\\BatteryDataReader.csproj",
         "projectName": "BatteryDataReader",
-        "projectPath": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\BatteryDataReader\\BatteryDataReader\\BatteryDataReader.csproj",
+        "projectPath": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Service\\BatteryDataReader\\BatteryDataReader.csproj",
         "packagesPath": "C:\\Users\\bleju\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\BatteryDataReader\\BatteryDataReader\\obj\\",
+        "outputPath": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Service\\BatteryDataReader\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "K1wnE82cb6xYje1ENw9hn6XFZpfIDmCuKNuNhhlj0Bb1WvYTuZpquAdwqsIlHhR3Iu9U3ylbPjPsd3NyaJe0DQ==",
+  "dgSpecHash": "PEABgYNvIBp7KA2K+pwZnmMTzVJOri+Mpmyp/Z/VwGZ5AoEe0MF74kTMvRBhMn/n/1gShpa7QvwbN5Imsj39UQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\BatteryDataReader\\BatteryDataReader\\BatteryDataReader.csproj",
+  "projectFilePath": "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Service\\BatteryDataReader\\BatteryDataReader.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bleju\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\bleju\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
