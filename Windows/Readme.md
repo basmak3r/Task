@@ -9,5 +9,5 @@ Before Cook<br>
 
 <br>
 After Cook<br>
-["./image_2.Png"](https://github.com/basmak3r/Task/blob/main/Windows/image_2.PNG)
+<img src="https://github.com/basmak3r/Task/blob/main/Windows/image_2.PNG"/>
 
