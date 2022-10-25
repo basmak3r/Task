@@ -5,9 +5,9 @@ Powershell(Admin)-> sc create <Service_name> binpath="path of service .exe file 
 
 <br>
 Before Cook<br>
-<img src="image_1.Png">
+<img src="./image_1.Png">
 
 <br>
 After Cook<br>
-<img src="image_2.Png">
+<img src="./image_2.Png">
 
