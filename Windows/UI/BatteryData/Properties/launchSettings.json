@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BatteryData (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "BatteryData (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

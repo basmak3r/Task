@@ -1,0 +1,41 @@
+﻿<Window x:ConnectionId='1'
+    x:Class="BatteryData.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    mc:Ignorable="d">
+
+    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        <TextBox x:Name="boxNames"></TextBox>
+    </StackPanel>-->
+    <Border>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button x:ConnectionId='2'
+                Name="myButton"
+                Grid.Row="0"
+                Margin="10"
+                Content="Cook Data"
+                                      />
+
+
+            <TextBlock x:ConnectionId='3' Name="SpotCount" Margin="10" Grid.Row="1" >Spot Count :   </TextBlock>
+            <TextBlock x:ConnectionId='4' Name="BadCount" Margin="10" Grid.Row="2" > Bad Count : </TextBlock>
+            <TextBlock x:ConnectionId='5' Name="OptimalCount" Margin="10" Grid.Row="3" > Optimal Count :</TextBlock>
+
+            <controls:DataGrid x:ConnectionId='6' Grid.Row="4"                                  />
+        </Grid>
+    </Border>
+</Window>
+

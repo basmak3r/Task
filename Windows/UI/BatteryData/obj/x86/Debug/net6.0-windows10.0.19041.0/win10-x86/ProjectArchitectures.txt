@@ -1,0 +1,1 @@
+C:\Users\bleju\Desktop\Task\Windows\UI\BatteryData\BatteryData.csproj;x86
