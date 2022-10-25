@@ -1,3 +1,3 @@
-Define path of Data_Folder in Service/BatteryDataReader/Worker.CS, UI/BatteryData/Process.cs, UI/BatteryData/DbDesign.cs
-Publish Service 
+Define path of Data_Folder in <b>Service/BatteryDataReader/Worker.CS</b>,  <b>UI/BatteryData/Process.cs</b>,  <b>UI/BatteryData/DbDesign.cs</b><br>
+Publish Service <br>
 Powershell(Admin)-> sc create <Service_name> binpath="<path of published folder of service>"
