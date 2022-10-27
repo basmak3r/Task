@@ -23,9 +23,11 @@ namespace BatteryData
 
 
 
-        static string file = "Data.db";
-        //Define the path
-        static string path = "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Data\\" + file;
+       static string file = "Data.db";
+        static string dir = "C:\\ProgramData\\BatteryData";
+        //Path Define
+        static string path = dir + "\\" + file;
+
         static string cs = "Data Source=" + path + ";User Instance=True;";
 
 
@@ -174,10 +176,18 @@ namespace BatteryData
                 time_final = new DateTime();
                 int plugged_state = rdr.GetInt32(3);
                 int flag = 0;
+                
 
                 if (plugged_state == 1)
                 {
                     flag = 1;
+                    if(plugged_state==1 && rdr.GetFloat(1)==1.00)
+                    {
+                        flag = 2;
+                        time_initial = rdr.GetDateTime(2);
+                        time_final = time_initial;
+                    }
+                    
 
                     while (rdr.Read())
                     {
