@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Data",
+    "\\Service",
+    "\\Service\\BatteryDataReader"
+  ],
+  "SelectedNode": "\\Service\\BatteryDataReader\\Worker.cs",
+  "PreviewInSolutionExplorer": false
+}
