@@ -31,7 +31,6 @@ import java.util.*
 class BatteryReadService : Service() {
 
     private lateinit var db:AppDatabase
-//private val noteDatabase by lazy { UserDatabase.getDatabase(this).userDao() }
 
     @Nullable
     override fun onBind(intent: Intent?): IBinder? {
@@ -40,30 +39,34 @@ class BatteryReadService : Service() {
 
 
     override fun onCreate() {
+        //db Init
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "database-name"
         ).allowMainThreadQueries().build()
         super.onCreate()
-
-
-
     }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-        // do your jobs here
-        registerReceiver(receiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-
-        startForeground()
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED)) //Service Start
+        startForeground() //ForeGroundStart
         return super.onStartCommand(intent, flags, startId)
     }
 
 
+    companion object {
+        private const val NOTIF_ID = 1
+        private const val NOTIF_CHANNEL_ID = "Channel_Id"
+    }
+
+
+    //Foreground Service
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun startForeground() {
+    private fun startForeground()
+    {
+
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this, 0,
@@ -88,47 +91,38 @@ class BatteryReadService : Service() {
         )
     }
 
-    companion object {
-        private const val NOTIF_ID = 1
-        private const val NOTIF_CHANNEL_ID = "Channel_Id"
-    }
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             if(intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)){
 
-//            if (intent.action!!.compareTo(Intent.ACTION_TIME_TICK) == 0) {
+//            if (intent.action!!.compareTo(Intent.ACTION_TIME_TICK) == 0) { //Time Ticking
+
+                //Battery Percentage
                 val bm = applicationContext.getSystemService(BATTERY_SERVICE) as BatteryManager
                 val batLevel:Int = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+
+
+                //Battery Charging or Not
                 val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
                 val batteryStatus = context!!.registerReceiver(null, ifilter)
                 val status: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
                 val isCharging: Boolean = status == BatteryManager.BATTERY_STATUS_CHARGING
                         || status == BatteryManager.BATTERY_STATUS_FULL
-//                val batteryPct: Float? = batteryStatus?.let { intent ->
-//                    val level: Int = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-//                    val scale: Int = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-//                    level * 100 / scale.toFloat()
-//                }
                 val plugvalue:Int
+
+                //Conversion to boolean (1 or 0)  values
                 if(isCharging==true)
-                {
-                 plugvalue=1
-
-                }
+                        plugvalue=1
                 else
-                {
                     plugvalue=0
-                }
 
+
+                //Inserting to Db
                 val user=User(0,batLevel.toFloat(),LocalDateTime.now().toString(),plugvalue)
-
                 db.userDao().insertAll(user)
-                Log.i("my_id", isCharging.toString() + batLevel.toString())
+                Log.i("logdata", isCharging.toString() + batLevel.toString())
             }
         }
     }
-
-
-
 }
