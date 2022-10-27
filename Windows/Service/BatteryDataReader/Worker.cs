@@ -29,10 +29,15 @@ namespace BatteryDataReader
         static SQLiteCommand cmd=new SQLiteCommand();
         public static void DbDesign()
         {
-
             string file = "Data.db";
+            string dir = "C:\\ProgramData\\BatteryData";
+            //Path Define
+            string path = dir + "\\" + file;
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
 
-            string path = "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Data\\"+file;
             string cs = "Data Source="+path + ";User Instance=True";
 
             if (!File.Exists(path))

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Drawing;
+using Simplify.Windows.Forms;
 
 namespace BatteryData
 {
@@ -17,9 +19,16 @@ namespace BatteryData
 
             
             string file = "Data.db";
+            string dir = "C:\\ProgramData\\BatteryData";
             //Path Define
-            string path = "C:\\Users\\bleju\\Desktop\\Task\\Windows\\Data\\" + file;
+            string path = dir + "\\" + file;
+            if (!Directory.Exists(dir))  
+            {
+                Directory.CreateDirectory(dir);
+            }
+
             string cs = "Data Source=" + path + ";User Instance=True";
+
 
             if (!File.Exists(path))
             {
