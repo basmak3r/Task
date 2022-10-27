@@ -46,6 +46,8 @@ class BatteryReadService : Service() {
         ).allowMainThreadQueries().build()
         super.onCreate()
 
+
+
     }
 
 
