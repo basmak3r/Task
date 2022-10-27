@@ -1,20 +1,14 @@
 package com.example.batterydata
 
 import android.content.Intent
-import java.time.Period
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.GridView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import java.text.SimpleDateFormat
 import java.time.Duration
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 
@@ -41,8 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun ConvertLocalDate(date:String):LocalDateTime
     {
+        var date_convert=date
+        if(date_convert.length<23)
+            date_convert=date.substring(0,19)+".000"
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
-        var dateTime = LocalDateTime.parse(date, formatter)
+        var dateTime = LocalDateTime.parse(date_convert, formatter)
         return dateTime
     }
 
@@ -87,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
                 var charge = 0.00
                 var time :Long= 0
-                var timediff=timeDifference(initial_time,initial_time)
+                var timediff:Long=0
                 var i=1
 
                 while(i<count)
@@ -97,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                     var plugged_state = userDao[i].pluggedstate
 
 
-                    if (plugged_state == 0 && initial_charge != final_charge)
+                    if (plugged_state == 0 && initial_charge!=final_charge)
                     {
                         charge += initial_charge - final_charge;
                         timediff += timeDifference(initial_time,final_time)
@@ -163,6 +160,12 @@ class MainActivity : AppCompatActivity() {
             if(pluggedstate==1)
             {
                 flag=1
+                if( batterydata[i].batterylevel.toInt()==100)
+                {
+                    time_initial=ConvertLocalDate( batterydata[i].timestamp)
+                    time_final=time_initial
+                    flag=2
+                }
                 i++
                 while(i<count)
                 {
@@ -195,12 +198,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
-
         return counter_list
 
     }
@@ -210,12 +207,40 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val text1=findViewById<TextView>(R.id.textView)
-        val button1=findViewById<Button>(R.id.button1)
+        val badCount=findViewById<TextView>(R.id.BadCount)
+        val optimalCount=findViewById<TextView>(R.id.OptimalCount)
+        val spotCount=findViewById<TextView>(R.id.SpotCount)
+
+        val button1=findViewById<Button>(R.id.button)
+        val ll=findViewById<TableLayout>(R.id.table)
 
         button1.setOnClickListener(){
-                text1.setText(CycleCal().toString())
-                text1.setText(CounterCal().toString())
+
+            CounterCal()
+            CycleCal()
+            badCount.setText("Bad Count : " + counter_list[0].BadCount.toString())
+            optimalCount.setText("Optimal Count : " +counter_list[0].OptimalCount.toString())
+            spotCount.setText("Spot Count : " +counter_list[0].SpotCount.toString())
+//
+            var count=0
+            for (ls in list_data) {
+                val row = TableRow(this)
+
+                val lp: TableRow.LayoutParams =
+                    TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT)
+                row.layoutParams = lp
+                var date_time = TextView(this)
+                var discharge_ = TextView(this)
+                var time_ = TextView(this)
+                date_time.setText(ls.date_time+"     ")
+                discharge_.setText(ls.discharge_amount.toString()+"              ")
+                time_.setText(ls.discharge_time.toString())
+                row.addView(date_time)
+                row.addView(discharge_)
+                row.addView(time_)
+                ll.addView(row, count)
+                count++
+            }
 
 
         }
@@ -226,3 +251,86 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//time ticking
+
+//var(starting_date,ending_date)=StartandEnd(dateTime)
+//val userDao = db.userDao().getDateResult(starting_date ,ending_date)
+//var count=userDao.count();
+//
+//if(count>0)
+//{
+//
+//    var initial_charge: Float = userDao[0].batterylevel
+//    var initial_time =ConvertLocalDate( userDao[0].timestamp)
+//
+//    var charge = 0.00
+//    var time :Long= 0
+//    var timediff=timeDifference(initial_time,initial_time)
+//    var i=1
+//
+//    while(i<count)
+//    {
+//        var final_charge = userDao[i].batterylevel
+//        var final_time = ConvertLocalDate(userDao[i].timestamp)
+//        var plugged_state = userDao[i].pluggedstate
+//
+//
+//        if (plugged_state == 0 && initial_charge != final_charge)
+//        {
+//            charge += initial_charge - final_charge;
+//            timediff += timeDifference(initial_time,final_time)
+//            initial_time = final_time;
+//        }
+//
+//        if (plugged_state == 1)
+//        {
+//            initial_time = final_time;
+//        }
+//        initial_charge = final_charge;
+//        i++
+//    }
+//    time = timediff/60;
+//    charge = charge;
+//
+//    val list = Discharge(starting_date,charge,time);
+//    list_data.add(list)
+//}
+//else
+//{
+//    // Shutdown Case
+//    val list = Discharge(starting_date,0.00,0);
+//    list_data.add(list);
+//
+//}
+//
+//if(dateTime.plusHours(1)>=LocalDateTime.now())
+//{
+//    break;
+//}
+//dateTime=dateTime.plusHours(1)
+//
+//
+//}

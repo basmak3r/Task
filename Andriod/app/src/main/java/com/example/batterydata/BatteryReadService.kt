@@ -51,21 +51,11 @@ class BatteryReadService : Service() {
     }
 
 
-
-//    override fun onCreate() {
-//
-//         = ViewModelProvider(
-//            this,
-//            ViewModelProvider.NewInstanceFactory()
-//        ).get(MyOwnViewModel::class.java)
-//
-//    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         // do your jobs here
-        registerReceiver(receiver, IntentFilter(Intent.ACTION_TIME_TICK))
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         startForeground()
         return super.onStartCommand(intent, flags, startId)
@@ -105,7 +95,9 @@ class BatteryReadService : Service() {
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            if (intent.action!!.compareTo(Intent.ACTION_TIME_TICK) == 0) {
+            if(intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)){
+
+//            if (intent.action!!.compareTo(Intent.ACTION_TIME_TICK) == 0) {
                 val bm = applicationContext.getSystemService(BATTERY_SERVICE) as BatteryManager
                 val batLevel:Int = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
                 val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
